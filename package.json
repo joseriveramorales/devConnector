@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "server":"nodemon server"
+    "server": "nodemon server",
+    "stop": "npx kill-port 5000"
   },
   "author": "Jose Rivera",
   "license": "MIT",
