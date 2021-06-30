@@ -4,7 +4,7 @@
   "description": "Social Network for developers",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
+    "start": "run server",
     "server": "nodemon server",
     "stop": "npx kill-port 5000"
   },
