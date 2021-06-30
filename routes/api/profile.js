@@ -1,5 +1,7 @@
 // I need to bring the express router if I want to have routes in different files, it's always a good idea to break up these things in different resources
 const express = require('express');
+const request = require('request');
+const config = require('config')
 const router = express.Router();
 const auth = require('../../midleware/auth');
 const Profile = require('../../Models/Profile');
@@ -303,5 +305,33 @@ router.delete('/education/:edu_id', auth, async (req,res) => {
         }
     }
 )
+
+// @route       GET api/profile/github/:username
+// @desc        This will get user repos from github
+// @access      Public because anybody can view github user profiles 
+
+router.get('/github/:username', async(req,res) => {
+    try{
+        const options = {
+            uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5&
+            sort=created:asc&client_id=${config.get('githubClientId')}&client_secret=$
+            {config.get('githubClientSecret')}`,
+            method: 'GET',
+            headers: { 'user-agent': 'node.js' }
+        };
+
+        request(options, (error, response, body) => {
+            if(error) console.error(error);
+            if (response.statusCode !== 200) {
+                res.status(404).json( { msg: 'No github profile found'})
+            }
+            res.json(JSON.parse(body));
+        });
+
+    }catch(err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+        }
+})
 
 module.exports = router;
