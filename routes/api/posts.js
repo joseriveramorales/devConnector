@@ -101,11 +101,11 @@ router.delete('/:id', auth, async (req, res) => {
     const post = await Post.findById(req.params.id);
 
     if(!post){
-        res.status(404).send({msg: ' Post not found '});
+        return res.status(404).send({msg: ' Post not found '});
     }
 
     if(post.user.toString() !== req.user.id){
-        res.status(401).json( { msg: 'User not authorized' });
+        return res.status(401).json( { msg: 'User not authorized' });
     }
     await post.remove();
     res.json( { msg: 'Post removed' });
@@ -113,7 +113,7 @@ router.delete('/:id', auth, async (req, res) => {
     }catch(err){
         console.error(err.message);
         if(err.kind === 'ObjectId'){
-            res.status(404).send({msg: ' Post not found '});
+            return res.status(404).send({msg: ' Post not found '});
         }
         res.status(500).send('Server Error');
     }
