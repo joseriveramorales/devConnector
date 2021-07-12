@@ -1,4 +1,6 @@
 {
     "mongoURI":"mongodb+srv://jose123:jose123@devconnector.zgyef.mongodb.net/test?retryWrites=true&w=majority",
-    "secret": "Esunsecretoo"
+    "secret": "Esunsecretoo",
+    "githubClientId": "6f02bd383281af163f01",
+    "githubClientSecret": "d5b90c0b0f1baca266cb7c991cffc8571ed2a19c" 
 }
